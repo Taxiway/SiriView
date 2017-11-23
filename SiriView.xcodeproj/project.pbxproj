@@ -13,6 +13,7 @@
 		30BB48091FC56BA500D1DF33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30BB48081FC56BA500D1DF33 /* Assets.xcassets */; };
 		30BB480C1FC56BA500D1DF33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30BB480A1FC56BA500D1DF33 /* LaunchScreen.storyboard */; };
 		30BB480F1FC56BA500D1DF33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB480E1FC56BA500D1DF33 /* main.m */; };
+		30BB48171FC56BBE00D1DF33 /* SiriView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB48161FC56BBE00D1DF33 /* SiriView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		30BB480B1FC56BA500D1DF33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30BB480D1FC56BA500D1DF33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30BB480E1FC56BA500D1DF33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		30BB48151FC56BBE00D1DF33 /* SiriView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiriView.h; sourceTree = "<group>"; };
+		30BB48161FC56BBE00D1DF33 /* SiriView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				30BB480A1FC56BA500D1DF33 /* LaunchScreen.storyboard */,
 				30BB480D1FC56BA500D1DF33 /* Info.plist */,
 				30BB480E1FC56BA500D1DF33 /* main.m */,
+				30BB48151FC56BBE00D1DF33 /* SiriView.h */,
+				30BB48161FC56BBE00D1DF33 /* SiriView.m */,
 			);
 			path = SiriView;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 				30BB48041FC56BA500D1DF33 /* ViewController.m in Sources */,
 				30BB480F1FC56BA500D1DF33 /* main.m in Sources */,
 				30BB48011FC56BA500D1DF33 /* AppDelegate.m in Sources */,
+				30BB48171FC56BBE00D1DF33 /* SiriView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

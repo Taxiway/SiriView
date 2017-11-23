@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SiriView.h"
 
 @interface ViewController ()
 
@@ -14,9 +15,20 @@
 
 @implementation ViewController
 
+@synthesize siriView;
+
+- (void)refreshView {
+    [self.siriView setNeedsDisplay];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.1];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = UIColor.blackColor;
+    self.siriView = [[SiriView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:self.siriView];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.1];
 }
 
 
