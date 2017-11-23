@@ -19,16 +19,18 @@
 
 - (void)refreshView {
     [self.siriView setNeedsDisplay];
-    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.02];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = UIColor.blackColor;
-    self.siriView = [[SiriView alloc] initWithFrame:self.view.frame];
+    CGRect frame = self.view.bounds;
+    frame.size.height = 100.0;
+    self.siriView = [[SiriView alloc] initWithFrame:frame];
     [self.view addSubview:self.siriView];
-    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.02];
 }
 
 

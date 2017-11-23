@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SiriView : UIView
+@interface SiriView : UIView {
+    int tick;
+}
 
 @end

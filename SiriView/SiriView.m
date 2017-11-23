@@ -10,76 +10,55 @@
 
 @implementation SiriView
 
+const CGFloat K = 1.0;
+
+- (CGFloat)yPos:(CGFloat)x
+{
+    CGFloat gfn = pow(K / (K + pow(x, 2)), 2);
+    gfn *= cos(M_PI * tick / 100);
+    return MAX(0, gfn) * self.bounds.size.height / 2.0;
+}
+
 - (void)drawRect:(CGRect)rect {
-    // Create a gradient from white to red
-    CGFloat colors [] = {
-        1.0, 1.0, 1.0, 1.0,
-        1.0, 0.0, 0.0, 1.0
-    };
-    
-    CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
-    CGColorSpaceRelease(baseSpace), baseSpace = NULL;
-    
+    tick += 1;
+    if (tick == 51) {
+        tick = 0;
+    }
+    CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSaveGState(context);
-    
-        CGMutablePathRef pathRef = CGPathCreateMutable();
-    static int i = 0;
-    ++i;
-    if (i == 100) i = 0;
-    
-        /* do something with pathRef. For example:*/
-        CGPathMoveToPoint(pathRef, NULL, 100 + i, 100);
-        CGPathAddLineToPoint(pathRef, NULL, 100 + i, 100+100);
-        CGPathAddLineToPoint(pathRef, NULL, 200 + i, 100);
-        CGPathCloseSubpath(pathRef);
-    
-        CGContextAddPath(context, pathRef);
-    
+
+    CGMutablePathRef pathRef = CGPathCreateMutable();
+
+    CGFloat width = self.bounds.size.width, height = self.bounds.size.height;
+    CGFloat x = 0, y = height / 2.0;
+    CGPathMoveToPoint(pathRef, NULL, x, y);
+    for (CGFloat i = -3; i <= 3; i += 0.01) {
+        CGFloat yPos = [self yPos:i];
+        CGPathAddLineToPoint(pathRef, NULL, x + (3 + i) * width / 6.0, y - yPos);
+    }
+    CGPathCloseSubpath(pathRef);
+    CGContextAddPath(context, pathRef);
     CGContextClip(context);
+
+    CGGradientRef gradient;
+    CGColorSpaceRef colorSpace;
+    size_t locations_num = 2;
+    CGFloat locations[2] = {0.0, 1.0};
+
+    CGFloat components[8] = {  32/256.0, 133/256.0, 252/256.0, 0.2,
+        32/256.0, 133/256.0, 252/256.0, 0.4
+    };
+    colorSpace = CGColorSpaceCreateDeviceRGB();
+    gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, locations_num);
+
+    CGPoint startPoint, endPoint;
+    startPoint.x = width / 2;
+    startPoint.y = height / 2;
     
-    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
-    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
+    endPoint.x = width / 2;
+    endPoint.y = 0;
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
-//    CGContextRef lpCurrentContext = UIGraphicsGetCurrentContext();
-//    CGGradientRef gradient;
-//    CGColorSpaceRef colorSpace;
-//    size_t locations_num = 2;
-//
-//    CGFloat locations[2] = {0.0,1.0};
-//
-//    CGFloat components[8] = {  1.0, 0.0, 0.0, 0.8,
-//        1.0, 0.0, 0.0, 0.2
-//    };
-//    colorSpace = CGColorSpaceCreateDeviceRGB();
-//    gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, locations_num);
-//
-//    CGPoint startPoint, endPoint;
-//
-//    //Start point
-//    startPoint.x = self.frame.size.width/2;
-//    startPoint.y = self.frame.size.height/2;
-//
-//    //End point
-//    endPoint.x = self.frame.size.width/2;
-//    endPoint.y = self.frame.size.height/2;
-//
-//    CGMutablePathRef pathRef = CGPathCreateMutable();
-//
-//    /* do something with pathRef. For example:*/
-//    CGPathMoveToPoint(pathRef, NULL, 0, 0);
-//    CGPathAddLineToPoint(pathRef, NULL, 0, 0+100);
-//    CGPathAddLineToPoint(pathRef, NULL, 100, 0);
-//    CGPathCloseSubpath(pathRef);
-//
-//    CGContextAddPath(lpCurrentContext, pathRef);
-//    CGContextFillPath(lpCurrentContext);
-    
-    //CGContextDrawRadialGradient(lpCurrentContext, gradient, startPoint, 0, endPoint, self.frame.size.width/2, 0);
-    
 }
 
 
