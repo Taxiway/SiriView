@@ -24,17 +24,20 @@ const CGFloat K = 1.0;
     if (tick == 51) {
         tick = 0;
     }
+    CGFloat width = self.bounds.size.width, height = self.bounds.size.height;
+    if (tick == 0) {
+        pos = (rand() - RAND_MAX * 0.5) * width * 0.5 / RAND_MAX;
+    }
     CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGMutablePathRef pathRef = CGPathCreateMutable();
 
-    CGFloat width = self.bounds.size.width, height = self.bounds.size.height;
     CGFloat x = 0, y = height / 2.0;
-    CGPathMoveToPoint(pathRef, NULL, x, y);
+    CGPathMoveToPoint(pathRef, NULL, x + pos, y);
     for (CGFloat i = -3; i <= 3; i += 0.01) {
         CGFloat yPos = [self yPos:i];
-        CGPathAddLineToPoint(pathRef, NULL, x + (3 + i) * width / 6.0, y - yPos);
+        CGPathAddLineToPoint(pathRef, NULL, x + pos + (3 + i) * width / 6.0, y - yPos);
     }
     CGPathCloseSubpath(pathRef);
     CGContextAddPath(context, pathRef);

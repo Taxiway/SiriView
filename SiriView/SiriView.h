@@ -10,6 +10,7 @@
 
 @interface SiriView : UIView {
     int tick;
+    CGFloat pos;
 }
 
 @end
