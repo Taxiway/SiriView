@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+static const int MAXN = 10;
+
 @interface SiriView : UIView {
-    int tick;
-    CGFloat pos;
+    int tick[MAXN];
+    int tickLimit[MAXN];
+    CGFloat pos[MAXN];
 }
 
 @end
