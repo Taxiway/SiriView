@@ -20,6 +20,10 @@ const int speed = 2;
         tickLimit[i] = rand() % 10 + 41;
         tick[i] = rand() % tickLimit[i];
         amp[i] = rand() * 0.5 / RAND_MAX + 0.5;
+        int index = rand() % 3;
+        for (int j = 0; j < 3; ++j) {
+            color[i][j] = colors[index][j];
+        }
     }
 }
 
@@ -37,6 +41,10 @@ const int speed = 2;
             tick[i] = 0;
             tickLimit[i] = rand() % 10 + 41;
             amp[i] = rand() * 0.5 / RAND_MAX + 0.5;
+            int index = rand() % 3;
+            for (int j = 0; j < 3; ++j) {
+                color[i][j] = colors[index][j];
+            }
             [self generateRandomPos:i];
         }
     }
@@ -81,8 +89,8 @@ const int speed = 2;
     size_t locations_num = 2;
     CGFloat locations[2] = {0.0, 1.0};
     
-    CGFloat components[8] = {  32/256.0, 133/256.0, 252/256.0, 0.2,
-        32/256.0, 133/256.0, 252/256.0, 0.4
+    CGFloat components[8] = {  color[index][0]/256.0, color[index][1]/256.0, color[index][2]/256.0, 0.2,
+        color[index][0]/256.0, color[index][1]/256.0, color[index][2]/256.0, 0.4
     };
     colorSpace = CGColorSpaceCreateDeviceRGB();
     gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, locations_num);
