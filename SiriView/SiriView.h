@@ -13,6 +13,7 @@ static const int MAXN = 10;
 @interface SiriView : UIView {
     int tick[MAXN];
     int tickLimit[MAXN];
+    CGFloat amp[MAXN];
     CGFloat pos[MAXN];
 }
 
