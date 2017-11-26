@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, strong) SiriView *siriView;
+@property (nonatomic, strong) UISlider *slider;
 
 @end
 

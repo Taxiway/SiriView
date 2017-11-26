@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 
 static const int MAXN = 10;
-static float colors[3][3] = {
+static const int NCOLOR = 6;
+static float colors[NCOLOR][3] = {
     32, 133, 252,
     94, 252, 169,
-    253, 71, 103
+    253, 71, 103,
+    45, 246, 238,
+    252, 18, 245,
+    224, 245, 22
 };
 
 @interface SiriView : UIView {
@@ -22,5 +26,7 @@ static float colors[3][3] = {
     CGFloat pos[MAXN];
     float color[MAXN][3];
 }
+
+@property (nonatomic) CGFloat volumn;
 
 @end

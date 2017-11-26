@@ -11,8 +11,10 @@
 @implementation SiriView
 
 const CGFloat K = 0.5;
-const int nWave = 4;
+const int nWave = 6;
 const int speed = 2;
+
+@synthesize volumn;
 
 - (void)generateRandomTick
 {
@@ -20,7 +22,7 @@ const int speed = 2;
         tickLimit[i] = rand() % 10 + 41;
         tick[i] = rand() % tickLimit[i];
         amp[i] = rand() * 0.5 / RAND_MAX + 0.5;
-        int index = rand() % 3;
+        int index = rand() % NCOLOR;
         for (int j = 0; j < 3; ++j) {
             color[i][j] = colors[index][j];
         }
@@ -41,13 +43,18 @@ const int speed = 2;
             tick[i] = 0;
             tickLimit[i] = rand() % 10 + 41;
             amp[i] = rand() * 0.5 / RAND_MAX + 0.5;
-            int index = rand() % 3;
+            int index = rand() % NCOLOR;
             for (int j = 0; j < 3; ++j) {
                 color[i][j] = colors[index][j];
             }
             [self generateRandomPos:i];
         }
     }
+}
+
+- (void)refreshView {
+    [self setNeedsDisplay];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.02];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -58,6 +65,7 @@ const int speed = 2;
             [self generateRandomPos:i];
         }
     }
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.02];
     return self;
 }
 
@@ -78,7 +86,7 @@ const int speed = 2;
     CGPathMoveToPoint(pathRef, NULL, x + pos[index], y);
     for (CGFloat d = -3; d <= 3; d += 0.01) {
         CGFloat yPos = [self yPos:d andIndex:index];
-        CGPathAddLineToPoint(pathRef, NULL, x + pos[index] + (3 + d) * width / 6.0, y - yPos * sign * amp[index]);
+        CGPathAddLineToPoint(pathRef, NULL, x + pos[index] + (3 + d) * width / 6.0, y - yPos * sign * amp[index] * volumn);
     }
     CGPathCloseSubpath(pathRef);
     CGContextAddPath(context, pathRef);
@@ -86,10 +94,12 @@ const int speed = 2;
     
     CGGradientRef gradient;
     CGColorSpaceRef colorSpace;
-    size_t locations_num = 2;
-    CGFloat locations[2] = {0.0, 1.0};
+    size_t locations_num = 3;
+    CGFloat locations[3] = {0.0, 0.05, 1.0};
     
-    CGFloat components[8] = {  color[index][0]/256.0, color[index][1]/256.0, color[index][2]/256.0, 0.2,
+    CGFloat components[12] = {
+        1.0, 1.0, 1.0, 0.8,
+        color[index][0]/256.0, color[index][1]/256.0, color[index][2]/256.0, 0.6,
         color[index][0]/256.0, color[index][1]/256.0, color[index][2]/256.0, 0.4
     };
     colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -125,5 +135,12 @@ const int speed = 2;
     [self nextState];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    NSLog(@"Change");
+    if ([keyPath isEqualToString:@"value"]) {
+        UISlider *slider = (UISlider *)object;
+        self.volumn = slider.value;
+    }
+}
 
 @end
